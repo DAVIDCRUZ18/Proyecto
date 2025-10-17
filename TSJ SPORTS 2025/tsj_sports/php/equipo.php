@@ -28,7 +28,6 @@ $equipo = $result->fetch_assoc();
 <head>
     <meta charset="UTF-8">
     <title>Equipo <?php echo htmlspecialchars($equipo['nombre_equipo']); ?></title>
-    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 

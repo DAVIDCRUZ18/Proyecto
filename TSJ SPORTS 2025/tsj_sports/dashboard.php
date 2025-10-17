@@ -27,7 +27,7 @@ if ($perfilResult->num_rows === 0) {
 // 2. Verificar si ya pertenece a un equipo
 // ================================
 $equipoQuery = $conexion->prepare("
-    SELECT e.id_equipo, e.nombre_equipo 
+    SELECT e.id_equipo, e.nombre_equipo
     FROM equipo_jugadores ej
     INNER JOIN equipos e ON e.id_equipo = ej.id_equipo
     WHERE ej.id_usuario = ?
@@ -57,7 +57,7 @@ $equipo = $equipoResult->fetch_assoc();
 <?php if ($perteneceEquipo): ?>
   <div>
     <h2>🏆 Tu equipo actual: <?php echo htmlspecialchars($equipo['nombre_equipo']); ?></h2>
-    <a href="/TSJ SPORTS 2025/tsj_sports/php/equipo.php echo $equipo['id_equipo']; ?>">Ir a mi equipo</a>
+    <a href="/TSJ SPORTS 2025/tsj_sports/php/equipo.php?id=<?php echo $equipo['id_equipo']; ?>">Ir a mi equipo</a>
   </div>
 <?php else: ?>
   <!-- Modal para crear o unirse a equipo -->

@@ -16,6 +16,7 @@ body {
   background-repeat: repeat;
   background-position: center;
   min-height: 200vh;
+  text-align: center;
 }
 
 .container-navegacion {
