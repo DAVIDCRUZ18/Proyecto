@@ -8,7 +8,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+  <?php include $_SERVER['DOCUMENT_ROOT'] . "/TSJ SPORTS 2025/tsj_sports/includes/header.php"; ?>
+  
   <div class="profile-container">
+
     <input type="file" id="upload" style="display:none" accept="image/*" />
     <img src="https://via.placeholder.com/120" alt="Foto de perfil" id="profileImage" class="profile-pic">
     <div class="upload-btn" onclick="document.getElementById('upload').click()">Cambiar Foto</div>
@@ -54,4 +57,4 @@
 </body>
 </html>
 
-<?php include("header.php"); ?>
+

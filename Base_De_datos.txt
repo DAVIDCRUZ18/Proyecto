@@ -1,0 +1,170 @@
+-- ====================================
+-- TABLA: USUARIOS 
+-- ====================================
+-- CREATE TABLE usuarios (
+--   id_usuario INT(11) PRIMARY KEY AUTO_INCREMENT,
+--   usuario VARCHAR(50) NOT NULL,
+--   email VARCHAR(100) NOT NULL UNIQUE,
+--   contrasena VARCHAR(255) NOT NULL,
+--   fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--   Rol VARCHAR(255)
+--   estado ENUM('activo','inactivo') DEFAULT 'activo'
+--   conectado ENUM('1','0') DEFAULT '0'
+-- );
+
+-- ====================================
+-- TABLA: PERFIL
+-- ====================================
+-- CREATE TABLE perfil (
+--   id INT(11) PRIMARY KEY AUTO_INCREMENT,
+--   create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+--   name VARCHAR(255) NOT NULL
+-- );
+
+-- ====================================
+-- TABLA: EQUIPOS
+-- ====================================
+CREATE TABLE equipos (
+  id_equipo INT(11) PRIMARY KEY AUTO_INCREMENT,
+  nombre_equipo VARCHAR(100) NOT NULL,
+  escudo VARCHAR(255),
+  id_capitan INT(11),
+  descripcion TEXT,
+  ciudad VARCHAR(100),
+  activo TINYINT(1) DEFAULT 1,
+  fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (id_capitan) REFERENCES usuarios(id_usuario) 
+    ON DELETE SET NULL ON UPDATE CASCADE
+);
+
+-- ====================================
+-- TABLA: EQUIPO_JUGADORES (relación usuarios-equipos)
+-- ====================================
+CREATE TABLE equipo_jugadores (
+  id_relacion INT(11) PRIMARY KEY AUTO_INCREMENT,
+  id_equipo INT(11) NOT NULL,
+  id_usuario INT(11) NOT NULL,
+  fecha_union TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  es_capitan TINYINT(1) DEFAULT 0,
+  numero_camiseta INT(11),
+  FOREIGN KEY (id_equipo) REFERENCES equipos(id_equipo) 
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) 
+    ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- ====================================
+-- TABLA: TORNEOS
+-- ====================================
+CREATE TABLE torneos (
+  id_torneo INT(11) PRIMARY KEY AUTO_INCREMENT,
+  nombre_torneo VARCHAR(150) NOT NULL,
+  descripcion TEXT,
+  fecha_inicio DATE,
+  fecha_fin DATE,
+  costo_inscripcion DECIMAL(10,2),
+  max_equipos INT(11),
+  equipos_inscritos INT(11) DEFAULT 0,
+  estado ENUM('inscripciones_abiertas','en_curso','finalizado','cancelado') DEFAULT 'inscripciones_abiertas',
+  premio_descripcion TEXT,
+  reglas TEXT,
+  fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ====================================
+-- TABLA: TORNEO_INSCRIPCIONES
+-- ====================================
+CREATE TABLE torneo_inscripciones (
+  id_inscripcion INT(11) PRIMARY KEY AUTO_INCREMENT,
+  id_torneo INT(11) NOT NULL,
+  id_equipo INT(11) NOT NULL,
+  fecha_inscripcion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  pagado TINYINT(1) DEFAULT 0,
+  comprobante_pago VARCHAR(255),
+  fecha_pago DATETIME,
+  FOREIGN KEY (id_torneo) REFERENCES torneos(id_torneo) 
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (id_equipo) REFERENCES equipos(id_equipo) 
+    ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- ====================================
+-- TABLA: PARTIDOS
+-- ====================================
+CREATE TABLE partidos (
+  id_partido INT(11) PRIMARY KEY AUTO_INCREMENT,
+  id_equipo_local INT(11) NOT NULL,
+  id_equipo_visitante INT(11) NOT NULL,
+  fecha_partido DATETIME,
+  lugar VARCHAR(200),
+  estado ENUM('pendiente','aceptado','rechazado','finalizado','cancelado') DEFAULT 'pendiente',
+  goles_local INT(11) DEFAULT 0,
+  goles_visitante INT(11) DEFAULT 0,
+  id_creador INT(11),
+  fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (id_equipo_local) REFERENCES equipos(id_equipo) 
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (id_equipo_visitante) REFERENCES equipos(id_equipo) 
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (id_creador) REFERENCES usuarios(id_usuario) 
+    ON DELETE SET NULL ON UPDATE CASCADE
+);
+
+-- ====================================
+-- TABLA: PARTIDOS_TORNEO
+-- ====================================
+CREATE TABLE partidos_torneo (
+  id_partido_torneo INT(11) PRIMARY KEY AUTO_INCREMENT,
+  id_torneo INT(11) NOT NULL,
+  id_equipo_local INT(11) NOT NULL,
+  id_equipo_visitante INT(11) NOT NULL,
+  fecha_partido DATETIME,
+  lugar VARCHAR(200),
+  fase ENUM('grupos','octavos','cuartos','semifinal','final'),
+  grupo VARCHAR(10),
+  goles_local INT(11) DEFAULT 0,
+  goles_visitante INT(11) DEFAULT 0,
+  estado ENUM('programado','en_curso','finalizado','suspendido') DEFAULT 'programado',
+  FOREIGN KEY (id_torneo) REFERENCES torneos(id_torneo) 
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (id_equipo_local) REFERENCES equipos(id_equipo) 
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (id_equipo_visitante) REFERENCES equipos(id_equipo) 
+    ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- ====================================
+-- TABLA: ESTADISTICAS_JUGADOR
+-- ====================================
+CREATE TABLE estadisticas_jugador (
+  id_estadistica INT(11) PRIMARY KEY AUTO_INCREMENT,
+  id_partido INT(11) NOT NULL,
+  id_partido_torneo INT(11),
+  id_usuario INT(11) NOT NULL,
+  goles INT(11) DEFAULT 0,
+  asistencias INT(11) DEFAULT 0,
+  tarjetas_amarillas INT(11) DEFAULT 0,
+  tarjetas_rojas INT(11) DEFAULT 0,
+  minutos_jugados INT(11) DEFAULT 0,
+  fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (id_partido) REFERENCES partidos(id_partido) 
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (id_partido_torneo) REFERENCES partidos_torneo(id_partido_torneo) 
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) 
+    ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- ====================================
+-- TABLA: NOTIFICACIONES
+-- ====================================
+CREATE TABLE notificaciones (
+  id_notificacion INT(11) PRIMARY KEY AUTO_INCREMENT,
+  id_usuario INT(11) NOT NULL,
+  tipo ENUM('partido_invitacion','partido_aceptado','partido_rechazado','torneo_inscripcion','general'),
+  mensaje TEXT,
+  leida TINYINT(1) DEFAULT 0,
+  fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) 
+    ON DELETE CASCADE ON UPDATE CASCADE
+);

@@ -9,9 +9,6 @@ body {
     background: linear-gradient(262deg, #ffffff, #ffffff);
     color: #fff;
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-image: url(../Perfil/Img.png);
     background-position: center;
     background-size: cover;
@@ -25,6 +22,7 @@ body {
     padding: 30px;
     width: 380px;
     text-align: center;
+    margin: 0 auto;
   }
 
 .profile-pic {

@@ -19,12 +19,18 @@ if ($resultado->num_rows > 0) {
     $usuario = $resultado->fetch_assoc();
 
     if (password_verify($password, $usuario['contrasena'])) {
-        // Guardar datos en sesión
+        // ✅ Actualizar estado de conexión SOLO si la contraseña es correcta
+        $update = $conexion->prepare("UPDATE usuarios SET conectado = 1 WHERE id_usuario = ?");
+        $update->bind_param("i", $usuario['id_usuario']);
+        $update->execute();
+        $update->close();
+
+        // ✅ Guardar datos en sesión
         $_SESSION['id_usuario'] = $usuario['id_usuario'];
         $_SESSION['usuario'] = $usuario['usuario'];
 
-        // Redirigir al dashboard
-        header("Location: ../dashboard.html");
+        // ✅ Redirigir al dashboard
+        header("Location: ../dashboard.php");
         exit();
     } else {
         echo "❌ Contraseña incorrecta";
