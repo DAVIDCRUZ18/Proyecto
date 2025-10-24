@@ -1,0 +1,27 @@
+html, body, #map {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+}
+.coords-box {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background: white;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      font-family: Arial, sans-serif;
+      z-index: 1000;
+    }
+.coords-box button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+.coords-box button:hover {
+      background: #0056b3;
+    }

@@ -11,6 +11,7 @@ body {
     min-height: 100vh;
     background-image: url(../Perfil/Img.png);
     background-position: center;
+    text-align: center;
     background-size: cover;
     background-repeat: repeat;
 }
