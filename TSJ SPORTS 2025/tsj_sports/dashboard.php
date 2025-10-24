@@ -187,7 +187,7 @@ if ($perteneceEquipo) {
         .modal-content input:focus { outline: none; border-color: #667eea; }
         .modal-buttons { display: flex; gap: 10px; margin-top: 20px; }
         
-        .no-equipo-alert { background: #fff3cd; border-left: 4px solid #ffc107; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .no-equipo-alert { background: #3f285eff; border-left: 4px solid #917e47ff; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
         .equipo-badge { background: #667eea; color: white; padding: 8px 16px; border-radius: 20px; display: inline-block; margin-top: 10px; }
         
         @media (max-width: 768px) {
@@ -283,7 +283,7 @@ if ($perteneceEquipo) {
                         </div>
                     <?php endforeach; ?>
                     <?php if ($equipo['es_capitan']): ?>
-                        <a href="crear_partido.php" class="btn btn-primary" style="margin-top: 15px;">➕ Crear Nuevo Partido</a>
+                        <a href="/TSJ SPORTS 2025/" class="btn btn-primary" style="margin-top: 15px;">➕ Crear Nuevo Partido</a>
                     <?php endif; ?>
                 <?php elseif ($perteneceEquipo): ?>
                     <p style="color: #666;">No hay partidos programados.</p>
@@ -345,7 +345,7 @@ if ($perteneceEquipo) {
             <div class="section">
                 <h2>⚡ Acciones Rápidas</h2>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <a href="mi_perfil.php" class="btn btn-secondary">👤 Mi Perfil</a>
+                    <a href="/TSJ SPORTS 2025/tsj_sports/Perfil/perfil.php" class="btn btn-secondary">👤 Mi Perfil</a>
                     <?php if ($perteneceEquipo): ?>
                         <a href="mi_equipo.php?id=<?php echo $equipo['id_equipo']; ?>" class="btn btn-secondary">🛡️ Mi Equipo</a>
                         <a href="estadisticas.php" class="btn btn-secondary">📊 Estadísticas</a>
