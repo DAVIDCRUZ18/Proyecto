@@ -21,7 +21,7 @@ if ($perfilResult->num_rows === 0) {
     $insertPerfil->execute();
 }
 
-$perfil = $perfilQuery->num_rows > 0 ? $perfilResult->fetch_assoc() : ['id' => $id_usuario, 'name' => "Jugador_" . $id_usuario];
+$perfil = $perfilQuery->num_rows > 0 ? $perfilResult->fetch_assoc() : ['id' => $usuario, 'name' => "Jugador_" . $id_usuario];
 
 // ================================
 // 2. Verificar si pertenece a un equipo
