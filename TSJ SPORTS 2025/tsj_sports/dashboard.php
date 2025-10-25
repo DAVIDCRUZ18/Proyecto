@@ -14,14 +14,31 @@ $perfilQuery->bind_param("i", $id_usuario);
 $perfilQuery->execute();
 $perfilResult = $perfilQuery->get_result();
 
+// Si no existe el perfil, lo creamos tomando el nombre desde la tabla usuarios
 if ($perfilResult->num_rows === 0) {
-    $insertPerfil = $conexion->prepare("INSERT INTO perfil (id, name) VALUES (?, ?)");
-    $nombreDefault = "Jugador_" . $id_usuario;
-    $insertPerfil->bind_param("is", $id_usuario, $nombreDefault);
-    $insertPerfil->execute();
-}
+    // Obtener el nombre real desde la tabla usuarios
+    $userQuery = $conexion->prepare("SELECT usuario FROM usuarios WHERE id_usuario = ?");
+    $userQuery->bind_param("i", $id_usuario);
+    $userQuery->execute();
+    $userResult = $userQuery->get_result();
 
-$perfil = $perfilQuery->num_rows > 0 ? $perfilResult->fetch_assoc() : ['id' => $usuario, 'name' => "Jugador_" . $id_usuario];
+    if ($userResult->num_rows > 0) {
+        $usuarioData = $userResult->fetch_assoc();
+        $nombreUsuario = $usuarioData['usuario'];
+    } else {
+        $nombreUsuario = "Jugador_" . $id_usuario; // respaldo en caso de error
+    }
+
+    // Crear el perfil con el nombre real del usuario
+    $insertPerfil = $conexion->prepare("INSERT INTO perfil (id, name) VALUES (?, ?)");
+    $insertPerfil->bind_param("is", $id_usuario, $nombreUsuario);
+    $insertPerfil->execute();
+
+    // Establecer variable perfil para continuar
+    $perfil = ['id' => $id_usuario, 'name' => $nombreUsuario];
+} else {
+    $perfil = $perfilResult->fetch_assoc();
+}
 
 // ================================
 // 2. Verificar si pertenece a un equipo
