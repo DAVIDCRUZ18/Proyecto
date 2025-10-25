@@ -1,27 +1,294 @@
-html, body, #map {
-      height: 100%;
-      margin: 0;
-      padding: 0;
+/* === ESTILOS MAPA TSJ SPORTS === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+}
+
+/* === CONTENEDOR PRINCIPAL === */
+#map-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+/* === PANEL LATERAL === */
+.side-panel {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 320px;
+  max-height: calc(100vh - 40px);
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  z-index: 1000;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.panel-header h2 {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.panel-header p {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.panel-content {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* === FILTROS === */
+.filter-section {
+  margin-bottom: 20px;
+}
+
+.filter-section h3 {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  flex: 1;
+  min-width: 90px;
+  padding: 8px 12px;
+  border: 2px solid #e0e0e0;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 12px;
+  text-align: center;
+}
+
+.filter-btn:hover {
+  border-color: #667eea;
+  background: #f8f9ff;
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: #667eea;
+}
+
+/* === LISTA DE CANCHAS === */
+.canchas-list {
+  margin-top: 15px;
+}
+
+.cancha-item {
+  background: #f8f9fa;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-left: 4px solid #667eea;
+}
+
+.cancha-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.cancha-item h4 {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.cancha-item p {
+  font-size: 12px;
+  color: #666;
+  margin: 3px 0;
+}
+
+.cancha-item .tipo-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  background: #667eea;
+  color: white;
+  border-radius: 4px;
+  font-size: 10px;
+  margin-top: 5px;
+}
+
+/* === CUADRO DE COORDENADAS === */
 .coords-box {
-      position: absolute;
-      bottom: 20px;
-      left: 20px;
-      background: white;
-      padding: 10px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      font-family: Arial, sans-serif;
-      z-index: 1000;
-    }
+  position: absolute;
+  bottom: 80px; /* ← antes estaba en 20px, ahora sube más */
+  left: 10%; /* centrado horizontalmente */
+  transform: translateX(-50%);
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  font-family: Arial, sans-serif;
+  z-index: 2000;
+  min-width: 250px;
+}
+
+.coords-box strong {
+  color: #667eea;
+  font-size: 13px;
+}
+
+.coords-box #coords {
+  display: block;
+  margin: 8px 0;
+  padding: 8px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #333;
+}
+
 .coords-box button {
-      background: #007bff;
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: 600;
+  transition: transform 0.2s;
+}
+
 .coords-box button:hover {
-      background: #0056b3;
-    }
+  transform: translateY(-2px);
+}
+
+.coords-box button:active {
+  transform: translateY(0);
+}
+
+/* === BOTÓN DE UBICACIÓN === */
+.locate-btn {
+  position: absolute;
+  top: 90px;
+  left: 10px;
+  background: white;
+  border: 2px solid rgba(0,0,0,0.2);
+  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  transition: all 0.3s;
+}
+
+.locate-btn:hover {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+}
+
+/* === POPUPS PERSONALIZADOS === */
+.custom-popup .leaflet-popup-content-wrapper {
+  border-radius: 12px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 15px;
+  font-weight: 600;
+}
+
+.popup-body {
+  padding: 15px;
+}
+
+.popup-body p {
+  margin: 8px 0;
+  font-size: 13px;
+  color: #555;
+}
+
+.popup-body .icon {
+  color: #667eea;
+  margin-right: 8px;
+}
+
+.popup-link {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background: #667eea;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 12px;
+  transition: background 0.3s;
+}
+
+.popup-link:hover {
+  background: #5568d3;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .coords-box {
+    bottom: 80px;            /* un poco más arriba en móviles */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .coords-box {
+      position: absolute;
+      bottom: 60px;              /* ← subimos más arriba del borde inferior */
+      left: 50%;                 /* centrado horizontal */
+      transform: translateX(-50%);
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+      font-family: Arial, sans-serif;
+      z-index: 2000;             /* ← por encima del panel lateral y otros */
+      min-width: 260px;
+      max-width: 90%;
+      }
+
+}
