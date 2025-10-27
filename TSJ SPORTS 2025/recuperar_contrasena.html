@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contraseña - TSJ SPORTS</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .recovery-wrapper {
+            position: relative;
+            width: 450px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 40px;
+            color: #fff;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .recovery-wrapper h2 {
+            font-size: 32px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .recovery-wrapper p {
+            text-align: center;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .input-box {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            margin-bottom: 25px;
+        }
+
+        .input-box input {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 40px;
+            font-size: 16px;
+            color: #fff;
+            padding: 20px 45px 20px 20px;
+            outline: none;
+        }
+
+        .input-box input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .input-box .icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+        }
+
+        .btn {
+            width: 100%;
+            height: 50px;
+            background: #fff;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #333;
+            font-weight: 700;
+            transition: 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .alert-success {
+            background: rgba(40, 167, 69, 0.3);
+            border: 1px solid rgba(40, 167, 69, 0.5);
+            color: #d4edda;
+        }
+
+        .alert-error {
+            background: rgba(220, 53, 69, 0.3);
+            border: 1px solid rgba(220, 53, 69, 0.5);
+            color: #f8d7da;
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .step {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .step.active {
+            background: #fff;
+            color: #333;
+        }
+
+        .step.completed {
+            background: rgba(40, 167, 69, 0.5);
+        }
+
+        /* Ocultar secciones por defecto */
+        .step-content {
+            display: none;
+        }
+
+        .step-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="recovery-wrapper">
+            <!-- Indicador de pasos -->
+            <div class="step-indicator">
+                <div class="step active" id="step1-indicator">1</div>
+                <div class="step" id="step2-indicator">2</div>
+                <div class="step" id="step3-indicator">3</div>
+            </div>
+
+            <!-- Paso 1: Solicitar email -->
+            <div class="step-content active" id="step1">
+                <h2>Recuperar Contraseña</h2>
+                <p>Ingresa tu correo electrónico y te enviaremos un código de verificación</p>
+                
+                <div id="message-container"></div>
+
+                <form id="emailForm">
+                    <div class="input-box">
+                        <span class="icon">
+                            <ion-icon name="mail"></ion-icon>
+                        </span>
+                        <input type="email" id="recovery-email" name="email" placeholder="Tu Email" required>
+                    </div>
+                    <button class="btn" type="submit">Enviar Código</button>
+                </form>
+
+                <div class="back-link">
+                    <a href="index.html">← Volver al inicio de sesión</a>
+                </div>
+            </div>
+
+            <!-- Paso 2: Verificar código -->
+            <div class="step-content" id="step2">
+                <h2>Verificar Código</h2>
+                <p>Ingresa el código de 6 dígitos que enviamos a tu correo</p>
+                
+                <div id="message-container-2"></div>
+
+                <form id="codeForm">
+                    <div class="input-box">
+                        <span class="icon">
+                            <ion-icon name="key"></ion-icon>
+                        </span>
+                        <input type="text" id="verification-code" name="code" placeholder="Código de 6 dígitos" 
+                               maxlength="6" pattern="[0-9]{6}" required>
+                    </div>
+                    <button class="btn" type="submit">Verificar Código</button>
+                </form>
+
+                <div class="back-link">
+                    <a href="#" onclick="reenviarCodigo()">Reenviar código</a> | 
+                    <a href="#" onclick="volverPaso1()">Cambiar email</a>
+                </div>
+            </div>
+
+            <!-- Paso 3: Nueva contraseña -->
+            <div class="step-content" id="step3">
+                <h2>Nueva Contraseña</h2>
+                <p>Ingresa tu nueva contraseña (mínimo 6 caracteres)</p>
+                
+                <div id="message-container-3"></div>
+
+                <form id="passwordForm">
+                    <div class="input-box">
+                        <span class="icon">
+                            <ion-icon name="lock-closed"></ion-icon>
+                        </span>
+                        <input type="password" id="new-password" name="password" 
+                               placeholder="Nueva Contraseña" minlength="6" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="icon">
+                            <ion-icon name="lock-closed"></ion-icon>
+                        </span>
+                        <input type="password" id="confirm-password" name="confirm_password" 
+                               placeholder="Confirmar Contraseña" minlength="6" required>
+                    </div>
+                    <button class="btn" type="submit">Cambiar Contraseña</button>
+                </form>
+
+                <div class="back-link">
+                    <a href="index.html">← Volver al inicio de sesión</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    
+    <script>
+        let userEmail = '';
+        let verificationToken = '';
+
+        // Paso 1: Enviar email
+        document.getElementById('emailForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('recovery-email').value;
+            const btn = e.target.querySelector('.btn');
+            const originalText = btn.textContent;
+            
+            btn.textContent = 'Enviando...';
+            btn.disabled = true;
+
+            try {
+                const response = await fetch('/TSJ SPORTS 2025/tsj_sports/php/recuperar/enviar_codigo.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    userEmail = email;
+                    showMessage('success', data.message, 'message-container');
+                    setTimeout(() => {
+                        irPaso2();
+                    }, 1500);
+                } else {
+                    showMessage('error', data.message, 'message-container');
+                }
+            } catch (error) {
+                showMessage('error', 'Error al conectar con el servidor', 'message-container');
+            } finally {
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
+        });
+
+        // Paso 2: Verificar código
+        document.getElementById('codeForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const code = document.getElementById('verification-code').value;
+            const btn = e.target.querySelector('.btn');
+            const originalText = btn.textContent;
+            
+            btn.textContent = 'Verificando...';
+            btn.disabled = true;
+
+            try {
+                const response = await fetch('/TSJ SPORTS 2025/tsj_sports/php/recuperar/verificar_codigo.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: userEmail, code: code })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    verificationToken = data.token;
+                    showMessage('success', 'Código verificado correctamente', 'message-container-2');
+                    setTimeout(() => {
+                        irPaso3();
+                    }, 1500);
+                } else {
+                    showMessage('error', data.message, 'message-container-2');
+                }
+            } catch (error) {
+                showMessage('error', 'Error al verificar el código', 'message-container-2');
+            } finally {
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
+        });
+
+        // Paso 3: Cambiar contraseña
+        document.getElementById('passwordForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const password = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            if (password !== confirmPassword) {
+                showMessage('error', 'Las contraseñas no coinciden', 'message-container-3');
+                return;
+            }
+
+            if (password.length < 6) {
+                showMessage('error', 'La contraseña debe tener al menos 6 caracteres', 'message-container-3');
+                return;
+            }
+
+            const btn = e.target.querySelector('.btn');
+            const originalText = btn.textContent;
+            
+            btn.textContent = 'Guardando...';
+            btn.disabled = true;
+
+            try {
+                const response = await fetch('/TSJ SPORTS 2025/tsj_sports/php/recuperar/cambiar_contrasena.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        email: userEmail, 
+                        token: verificationToken,
+                        password: password 
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showMessage('success', '¡Contraseña cambiada! Redirigiendo...', 'message-container-3');
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 2000);
+                } else {
+                    showMessage('error', data.message, 'message-container-3');
+                }
+            } catch (error) {
+                showMessage('error', 'Error al cambiar la contraseña', 'message-container-3');
+            } finally {
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
+        });
+
+        // Funciones auxiliares
+        function showMessage(type, message, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+            
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 5000);
+        }
+
+        function irPaso2() {
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            document.getElementById('step1-indicator').classList.add('completed');
+            document.getElementById('step2-indicator').classList.add('active');
+        }
+
+        function irPaso3() {
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step3').classList.add('active');
+            document.getElementById('step2-indicator').classList.add('completed');
+            document.getElementById('step3-indicator').classList.add('active');
+        }
+
+        function volverPaso1() {
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step1').classList.add('active');
+            document.getElementById('step1-indicator').classList.remove('completed');
+            document.getElementById('step2-indicator').classList.remove('active');
+            document.getElementById('verification-code').value = '';
+        }
+
+        async function reenviarCodigo() {
+            showMessage('success', 'Reenviando código...', 'message-container-2');
+            
+            try {
+                const response = await fetch('/TSJ SPORTS 2025/tsj_sports/php/recuperar/enviar_codigo.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: userEmail })
+                });
+
+                const data = await response.json();
+                showMessage(data.success ? 'success' : 'error', data.message, 'message-container-2');
+            } catch (error) {
+                showMessage('error', 'Error al reenviar el código', 'message-container-2');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TSJ SPORTS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="form-wrapper login">
+            <form action="/TSJ SPORTS 2025/tsj_sports/php/login.php" method="POST">
+                <h2>Iniciar sesión</h2>
+                <div class="input-box">
+                    <span class="icon">
+                        <ion-icon name="mail"></ion-icon>
+                    </span>
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="input-box">
+                    <span class="icon">
+                        <ion-icon name="lock-closed"></ion-icon>
+                    </span>
+                    <input type="password" name="password" placeholder="Contraseña" required>
+                </div>
+                <div class="forgot-pass">  
+                    <!-- CAMBIO AQUÍ: Enlace a recuperar_contrasena.html -->
+                    <a href="recuperar_contrasena.html">¿Olvidaste tu contraseña?</a>
+                </div>
+                <button class="btn" type="submit">Iniciar sesión</button>
+                <div class="sign-link">
+                    <p>¿No tienes una cuenta? <a href="#" onclick="registerActive()">Registrarse</a></p>
+                </div>
+            </form>
+        </div>
+        <h2 class="text-right">Bienvenido</h2>
+        <div class="form-wrapper register">
+            <form action="/TSJ SPORTS 2025/tsj_sports/php/registro.php" method="POST">
+                <h2>Registrarse</h2>
+                <div class="input-box">
+                    <span class="icon">
+                        <ion-icon name="person"></ion-icon>
+                    </span>
+                    <input type="text" name="nombre" placeholder="Usuario" required>
+                </div>
+                <div class="input-box">
+                    <span class="icon">
+                        <ion-icon name="mail"></ion-icon>
+                    </span>
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="input-box">
+                    <span class="icon">
+                        <ion-icon name="lock-closed"></ion-icon>
+                    </span>
+                    <input type="password" name="password" placeholder="Contraseña" required>
+                </div>
+                <button class="btn" type="submit">Registrarse</button>
+                <div class="sign-link">
+                    <p>¿Ya tienes una cuenta? <a href="#" onclick="loginActive()">Iniciar sesión</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+CREATE TABLE IF NOT EXISTS `recuperacion_password` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(100) NOT NULL,
+  `codigo` varchar(6) NOT NULL,
+  `token` varchar(64) DEFAULT NULL,
+  `expiracion` datetime NOT NULL,
+  `usado` tinyint(1) DEFAULT 0,
+  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `email` (`email`),
+  KEY `codigo` (`codigo`),
+  KEY `token` (`token`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+```
+
+### 2. **Crear la estructura de carpetas**
+```
+/TSJ SPORTS 2025/tsj_sports/
+├── index.html (actualizado)
+├── recuperar_contrasena.html (nuevo)
+├── php/
+│   └── recuperar/
+│       ├── enviar_codigo.php (nuevo)
+│       ├── verificar_codigo.php (nuevo)
+│       └── cambiar_contrasena.php (nuevo)
