@@ -1,7 +1,9 @@
 <?php
 session_start();
 include __DIR__ . '/validar_sesion.php';
+include $_SERVER['DOCUMENT_ROOT'] . "/TSJ SPORTS 2025/tsj_sports/includes/header.php";
 include $_SERVER['DOCUMENT_ROOT'] . "/TSJ SPORTS 2025/tsj_sports/php/conexion.php";
+
 
 $id_usuario = $_SESSION['id_usuario'];
 
@@ -158,57 +160,8 @@ $pendientes = $pendientesQuery->get_result()->fetch_all(MYSQLI_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Partido - TSJ SPORTS</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; padding: 20px; }
-        
-        .container { max-width: 1000px; margin: 0 auto; }
-        
-        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .header h1 { font-size: 2em; margin-bottom: 10px; }
-        .header p { opacity: 0.9; }
-        
-        .back-btn { display: inline-block; padding: 10px 20px; background: rgba(255,255,255,0.2); color: white; text-decoration: none; border-radius: 6px; margin-top: 15px; transition: all 0.3s; }
-        .back-btn:hover { background: rgba(255,255,255,0.3); }
-        
-        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 30px; }
-        .card h2 { color: #333; margin-bottom: 20px; font-size: 1.5em; border-bottom: 3px solid #667eea; padding-bottom: 10px; }
-        
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; font-weight: bold; color: #333; margin-bottom: 8px; font-size: 0.95em; }
-        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1em; transition: border 0.3s; }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: #667eea; }
-        .form-group small { color: #666; font-size: 0.85em; margin-top: 5px; display: block; }
-        
-        .equipo-option { padding: 12px; border-bottom: 1px solid #f0f0f0; }
-        .equipo-option:last-child { border-bottom: none; }
-        
-        .btn { padding: 14px 28px; border: none; border-radius: 8px; cursor: pointer; font-size: 1em; font-weight: bold; transition: all 0.3s; text-decoration: none; display: inline-block; }
-        .btn-primary { background: #667eea; color: white; width: 100%; }
-        .btn-primary:hover { background: #5568d3; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(102,126,234,0.3); }
-        .btn-danger { background: #dc3545; color: white; padding: 8px 16px; font-size: 0.9em; }
-        .btn-danger:hover { background: #c82333; }
-        
-        .alert { padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; }
-        .alert-error { background: #f8d7da; border-left: 4px solid #dc3545; color: #721c24; }
-        .alert-success { background: #d4edda; border-left: 4px solid #28a745; color: #155724; }
-        .alert ul { margin-left: 20px; margin-top: 10px; }
-        
-        .partido-item { background: #f8f9fa; padding: 15px; border-left: 4px solid #ffc107; border-radius: 6px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
-        .partido-info { flex: 1; }
-        .partido-info strong { display: block; font-size: 1.1em; color: #333; margin-bottom: 5px; }
-        .partido-info small { color: #666; }
-        
-        .estado-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.85em; font-weight: bold; margin-left: 10px; }
-        .estado-pendiente { background: #fff3cd; color: #856404; }
-        
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        
-        @media (max-width: 768px) {
-            .grid-2 { grid-template-columns: 1fr; }
-            .partido-item { flex-direction: column; align-items: flex-start; }
-        }
-    </style>
+    <link rel="stylesheet" href="/TSJ SPORTS 2025/tsj_sports/css/crear_partido.css">
+    
 </head>
 <body>
 

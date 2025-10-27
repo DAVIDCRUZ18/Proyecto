@@ -300,12 +300,12 @@ if ($perteneceEquipo) {
                         </div>
                     <?php endforeach; ?>
                     <?php if ($equipo['es_capitan']): ?>
-                        <a href="/TSJ SPORTS 2025/" class="btn btn-primary" style="margin-top: 15px;">➕ Crear Nuevo Partido</a>
+                        <a href="php/crear_partido.php" class="btn btn-primary" style="margin-top: 15px;">➕ Crear Nuevo Partido</a>
                     <?php endif; ?>
                 <?php elseif ($perteneceEquipo): ?>
                     <p style="color: #666;">No hay partidos programados.</p>
                     <?php if ($equipo['es_capitan']): ?>
-                        <a href="crear_partido.php" class="btn btn-primary" style="margin-top: 15px;">➕ Crear Primer Partido</a>
+                        <a href="php/crear_partido.php" class="btn btn-primary" style="margin-top: 15px;">➕ Crear Primer Partido</a>
                     <?php endif; ?>
                 <?php else: ?>
                     <p style="color: #999;">Únete a un equipo para ver partidos</p>
