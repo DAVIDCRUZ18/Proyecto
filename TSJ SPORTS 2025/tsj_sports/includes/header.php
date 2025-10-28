@@ -41,11 +41,11 @@
           <i class="fas fa-user-circle"></i> Perfil
         </a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a href="#contacto">
           <i class="fas fa-address-book"></i> Contactos
         </a>
-      </li>
+      </li> -->
 
       <!-- Botón de Cerrar Sesión -->
       <li class="nav-item logout-item">
