@@ -170,7 +170,13 @@ $pendientes = $pendientesQuery->get_result()->fetch_all(MYSQLI_ASSOC);
     <div class="header">
         <h1>⚽ Crear Nuevo Partido</h1>
         <p>Equipo: <strong><?php echo htmlspecialchars($miEquipo['nombre_equipo']); ?></strong></p>
-        <a href="mi_equipo.php?id=<?php echo $id_mi_equipo; ?>" class="back-btn">← Volver a mi equipo</a>
+        <a href="../dashboard.php?php echo $id_mi_equipo; ?>" class="back-btn">← Volver a Dashboard</a>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2>⏳ Partidos Pendientes de Confirmación</h2>
+            <a href="responder_partido.php" class="btn btn-secondary">
+                📬 Ver Invitaciones Recibidas
+            </a>
+        </div>
     </div>
 
     <!-- Mensajes de error/éxito -->

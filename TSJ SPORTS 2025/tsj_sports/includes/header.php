@@ -26,12 +26,12 @@
           <i class="fas fa-map-marked-alt"></i> Mapa
         </a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a href="/TSJ SPORTS 2025/tsj_sports/chat/chat.php">
           <i class="fas fa-comments"></i> Chat
         </a>
-      </li>
-      <li class="nav-item">
+      </li>-->
+      <li class="nav-item"> 
         <a href="/TSJ SPORTS 2025/tsj_sports/equipos/equipos.php">
           <i class="fas fa-users"></i> Mi Equipo
         </a>

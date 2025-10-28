@@ -111,14 +111,14 @@
         }
 
         .code-inputs input:focus {
-            border-color: #00d4ff;
+            border-color: #4b9aaaff;
             transform: scale(1.05);
         }
 
         .btn {
             width: 100%;
             height: 50px;
-            background: linear-gradient(45deg, #00d4ff, #0099ff);
+            background: linear-gradient(45deg, #5197a5ff, #5185a8ff);
             border: none;
             border-radius: 40px;
             cursor: pointer;
@@ -146,7 +146,7 @@
         }
 
         .back-link a {
-            color: #00d4ff;
+            color: #4b8996ff;
             text-decoration: none;
             font-size: 14px;
             transition: 0.3s;

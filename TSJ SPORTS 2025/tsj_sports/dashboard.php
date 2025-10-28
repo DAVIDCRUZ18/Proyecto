@@ -233,7 +233,7 @@ if ($perteneceEquipo) {
                 <?php endif; ?>
             </div>
             <?php if ($notificaciones > 0): ?>
-                <a href="notificaciones.php" style="margin-left: auto; background: #ff4757; color: white; padding: 8px 16px; border-radius: 20px; text-decoration: none;">
+                <a href="/TSJ SPORTS 2025/tsj_sports/php/responder_partido.php" style="margin-left: auto; background: #ff4757; color: white; padding: 8px 16px; border-radius: 20px; text-decoration: none;">
                     🔔 <?php echo $notificaciones; ?> notificaciones
                 </a>
             <?php endif; ?>
@@ -370,6 +370,28 @@ if ($perteneceEquipo) {
                     <a href="todos_torneos.php" class="btn btn-secondary">🏆 Ver Todos los Torneos</a>
                 </div>
             </div>
+            <?php if ($perteneceEquipo && $equipo['es_capitan']): ?>
+            <!-- Obtener invitaciones pendientes -->
+            <?php
+            $invitacionesCount = $conexion->prepare("
+                SELECT COUNT(*) as total 
+                FROM partidos 
+                WHERE id_equipo_visitante = ? AND estado = 'pendiente'
+            ");
+            $invitacionesCount->bind_param("i", $equipo['id_equipo']);
+            $invitacionesCount->execute();
+            $totalInvitaciones = $invitacionesCount->get_result()->fetch_assoc()['total'];
+            ?>
+            
+            <a href="/TSJ SPORTS 2025/tsj_sports/php/responder_partido.php" class="btn btn-secondary" style="position: relative;">
+                📬 Invitaciones de Partidos
+                <?php if ($totalInvitaciones > 0): ?>
+                    <span style="position: absolute; top: -5px; right: -5px; background: #ff4757; color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 0.75em; font-weight: bold;">
+                        <?php echo $totalInvitaciones; ?>
+                    </span>
+                <?php endif; ?>
+            </a>
+            <?php endif; ?>
         </div>
     </div>
 </div>
