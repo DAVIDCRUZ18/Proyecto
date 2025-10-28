@@ -72,20 +72,9 @@ if ($mail->send()) {
 }
 */
 
-// OPCIÓN 2: Para desarrollo - mostrar código en consola/log
-error_log("CÓDIGO DE RECUPERACIÓN para $email: $codigo");
-
-echo json_encode([
-    'success' => true, 
-    'message' => 'Código enviado a tu email (Desarrollo: revisa la consola)',
-    'dev_code' => $codigo // ELIMINAR EN PRODUCCIÓN
-]);
-
 // ============================================
 // ARCHIVO 2: php/recuperar/verificar_codigo.php
 // ============================================
-?>
-<?php
 header('Content-Type: application/json');
 include $_SERVER['DOCUMENT_ROOT'] . "/TSJ SPORTS 2025/tsj_sports/php/conexion.php";
 
@@ -184,23 +173,4 @@ if ($update->execute()) {
 } else {
     echo json_encode(['success' => false, 'message' => 'Error al actualizar la contraseña']);
 }
-
-// ============================================
-// SCRIPT SQL: Crear tabla de recuperación
-// ============================================
-/*
-CREATE TABLE IF NOT EXISTS `recuperacion_password` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(100) NOT NULL,
-  `codigo` varchar(6) NOT NULL,
-  `token` varchar(64) DEFAULT NULL,
-  `expiracion` datetime NOT NULL,
-  `usado` tinyint(1) DEFAULT 0,
-  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  KEY `email` (`email`),
-  KEY `codigo` (`codigo`),
-  KEY `token` (`token`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-*/
 ?>
