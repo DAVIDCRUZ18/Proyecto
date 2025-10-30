@@ -1,0 +1,19 @@
+#modal-crear {
+    backdrop-filter: blur(5px);
+}
+
+.equipo-card {
+    transition: transform 0.2s;
+}
+
+.equipo-card:hover {
+    transform: translateY(-3px);
+}
+
+.bg-green-500 {
+    background-color: #22c55e;
+}
+
+.bg-blue-500 {
+    background-color: #3b82f6;
+}

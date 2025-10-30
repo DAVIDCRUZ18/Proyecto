@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Perfil del Jugador</title>
+  <link rel="stylesheet" href="../css/StylesP.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="profile-container">
+    <input type="file" id="upload" style="display:none" accept="image/*" />
+    <img src="https://via.placeholder.com/120" alt="Foto de perfil" id="profileImage" class="profile-pic">
+    <div class="upload-btn" onclick="document.getElementById('upload').click()">Cambiar Foto</div>
+
+    <!-- Redes sociales -->
+    <div class="socials">
+      <div>
+        <label>Instagram</label>
+        <input type="text" id="instagram" placeholder="@usuario" />
+      </div>
+    </div>
+    <div class="socials">
+      <div>
+        <label>Twitter</label>
+        <input type="text" id="twitter" placeholder="@usuario" />
+      </div>
+    </div>
+    <div class="socials">
+      <div>
+        <label>Facebook</label>
+        <input type="text" id="facebook" placeholder="nombreusuario" />
+      </div>
+    </div>
+
+    <button class="save-btn" onclick="saveProfile()">Guardar Perfil</button>
+
+    <!-- Estadísticas cargadas desde la base de datos -->
+    <div class="stat">
+      <p><strong>Equipo:</strong> <span id="teamDisplay">SAPO</span></p>
+      <p><strong>Goles:</strong> <span id="goalsDisplay">390</span></p>
+      <p><strong>Partidos:</strong> <span id="matchesDisplay">220</span></p>
+    </div>
+
+    <!-- Enlaces redes -->
+    <div class="socials">
+      <a id="linkInstagram" target="_blank" style="color:#ff0055" href="#">IG</a>
+      <a id="linkTwitter" target="_blank" style="color:#009dff" href="#">TW</a>
+      <a id="linkFacebook" target="_blank" style="color:#1900ff" href="#">FB</a>
+    </div>
+  </div>
+
+  <script src="../js/perfil.js"></script>
+</body>
+</html>
+
+<?php include("header.php"); ?>
