@@ -151,6 +151,21 @@ if ($perteneceEquipo) {
     $inscritosQuery->execute();
     $torneosInscritos = $inscritosQuery->get_result()->fetch_all(MYSQLI_ASSOC);
 }
+
+///===============================
+// 8. Verificar si es capitán
+//===============================
+$esCapitan = false;
+if ($perteneceEquipo) {
+    $capitanQuery = $conexion->prepare("
+        SELECT es_capitan FROM equipo_jugadores 
+        WHERE id_usuario = ? AND id_equipo = ?
+    ");
+    $capitanQuery->bind_param("ii", $id_usuario, $equipo['id_equipo']);
+    $capitanQuery->execute();
+    $esCapitan = $capitanQuery->get_result()->fetch_assoc()['es_capitan'] == 1;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -180,7 +195,7 @@ if ($perteneceEquipo) {
         .section h2 { color: #333; margin-bottom: 20px; font-size: 1.5em; border-bottom: 3px solid #667eea; padding-bottom: 10px; }
         
         .partido-item { padding: 15px; border-left: 4px solid #667eea; background: #f8f9fa; margin-bottom: 10px; border-radius: 5px; }
-        .partido-item .equipos { font-weight: bold; font-size: 1.1em; margin-bottom: 5px; }
+        .partido-item .equipos { font-weight: bold; font-size: 1.1em; margin-bottom: 5px; color: black; }
         .partido-item .info { color: #666; font-size: 0.9em; }
         .estado-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.85em; font-weight: bold; }
         .estado-pendiente { background: #fff3cd; color: #856404; }
