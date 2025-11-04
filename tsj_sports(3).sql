@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-10-2025 a las 06:44:15
+-- Tiempo de generación: 04-11-2025 a las 07:02:01
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -103,7 +103,9 @@ CREATE TABLE `partidos` (
   `goles_local` int(11) DEFAULT 0,
   `goles_visitante` int(11) DEFAULT 0,
   `id_creador` int(11) DEFAULT NULL,
-  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp()
+  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
+  `hora_partido` time DEFAULT NULL,
+  `ubicacion` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -174,6 +176,7 @@ CREATE TABLE `torneos` (
   `max_equipos` int(11) DEFAULT NULL,
   `equipos_inscritos` int(11) DEFAULT 0,
   `estado` enum('inscripciones_abiertas','en_curso','finalizado','cancelado') DEFAULT 'inscripciones_abiertas',
+  `creado_por` int(11) DEFAULT NULL,
   `premio_descripcion` text DEFAULT NULL,
   `reglas` text DEFAULT NULL,
   `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp()
