@@ -1,6 +1,6 @@
 <?php
 session_start();
-include __DIR__ . '/php/validar_sesion.php';
+include $_SERVER['DOCUMENT_ROOT'] . "/TSJ SPORTS 2025/tsj_sports/php/validar_sesion.php";
 include $_SERVER['DOCUMENT_ROOT'] . "/TSJ SPORTS 2025/tsj_sports/php/conexion.php";
 
 $id_usuario = $_SESSION['id_usuario'];
@@ -28,7 +28,7 @@ if (!$miEquipo['es_capitan']) {
 $id_equipo = $miEquipo['id_equipo'];
 
 // Obtener ID del torneo
-$id_torneo = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$id_torneo = isset($_GET['id_torneo']) ? intval($_GET['id_torneo']) : 0;
 
 // Obtener información del torneo
 $torneoQuery = $conexion->prepare("
@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$yaInscrito && $cuposDisponibles >
         
         $_SESSION['mensaje'] = "¡Inscripción exitosa! Recuerda realizar el pago para confirmar tu participación.";
         $_SESSION['tipo_mensaje'] = "success";
-        header("Location: dashboard.php");
+        header("Location: /TSJ SPORTS 2025/tsj_sports/dashboard.php");
         exit;
     }
 }
@@ -132,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$yaInscrito && $cuposDisponibles >
     <div class="header">
         <h1>🏆 Inscripción a Torneo</h1>
         <p>Equipo: <strong><?php echo htmlspecialchars($miEquipo['nombre_equipo']); ?></strong></p>
-        <a href="dashboard.php" class="back-btn">← Volver al Dashboard</a>
+        <a href="/TSJ SPORTS 2025/tsj_sports/dashboard.php" class="back-btn">← Volver al Dashboard</a>
     </div>
 
     <?php if ($yaInscrito): ?>
@@ -140,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$yaInscrito && $cuposDisponibles >
             <strong>✅ Ya estás inscrito en este torneo</strong>
             <p>Tu equipo ya está registrado en este torneo.</p>
         </div>
-        <a href="dashboard.php" class="btn btn-primary">Volver al Dashboard</a>
+        <a href="/TSJ SPORTS 2025/tsj_sports/dashboard.php" class="btn btn-primary">Volver al Dashboard</a>
     <?php elseif ($cuposDisponibles <= 0): ?>
         <div class="alert alert-warning">
             <strong>⚠️ Torneo Completo</strong>

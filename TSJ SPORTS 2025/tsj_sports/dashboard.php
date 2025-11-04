@@ -361,8 +361,9 @@ if ($perteneceEquipo) {
                                 <span>👥 <?php echo $torneo['equipos_inscritos']; ?>/<?php echo $torneo['max_equipos']; ?></span>
                             </div>
                             <?php if ($perteneceEquipo && $equipo['es_capitan']): ?>
-                                <a href="inscribir_torneo.php?id=<?php echo $torneo['id_torneo']; ?>" 
-                                   class="btn btn-success" style="width: 100%; margin-top: 10px; text-align: center;">
+                                <a href="/TSJ SPORTS 2025/tsj_sports/php/inscribir_torneo.php?id_torneo=<?php echo $torneo['id_torneo']; ?>"
+                                    class="btn btn-success"
+                                    style="width: 100%; margin-top: 10px; text-align: center;">
                                     Inscribirse
                                 </a>
                             <?php endif; ?>
